@@ -19,9 +19,7 @@ def find_closest(location, centroids):
     [2.0, 3.0]
     """
     # BEGIN Question 3
-    def find_distance(loc):
-        return distance(loc, location)
-    return min(centroids, key=find_distance)
+    return min(centroids, key=lambda loc:distance(loc, location))
     # END Question 3
 
 
@@ -157,13 +155,9 @@ def rate_all(user, restaurants, feature_fns):
     reviewed = user_reviewed_restaurants(user, restaurants)
     # BEGIN Question 9
     ratings = {restaurant_name(r): user_rating(user, restaurant_name(r)) for r in reviewed}
-
-    def not_rated(r):
-        return r not in reviewed
-
     not_reviewed = []
     for r in restaurants:
-        if not_rated(r):
+        if r not in reviewed:
             not_reviewed += [r]
 
     for r in not_reviewed:
